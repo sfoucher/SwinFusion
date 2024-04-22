@@ -140,7 +140,8 @@ def test(img_a, img_b, model, args, window_size):
         for h_idx in h_idx_list:
             for w_idx in w_idx_list:
                 in_patch = img_a[..., h_idx:h_idx+tile, w_idx:w_idx+tile]
-                out_patch = model(in_patch)
+                in_patch_b = img_b[..., h_idx:h_idx+tile, w_idx:w_idx+tile]
+                out_patch = model(in_patch, in_patch_b)
                 out_patch_mask = torch.ones_like(out_patch)
 
                 E[..., h_idx*sf:(h_idx+tile)*sf, w_idx*sf:(w_idx+tile)*sf].add_(out_patch)
